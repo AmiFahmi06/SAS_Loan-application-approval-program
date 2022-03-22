@@ -8,9 +8,19 @@ Folder name: DM_CT_MAR_2022_PROJECT_AMIE
 Permanent Library name:DMLIBMFR
 ***********************************************/
 
+/***********************************************************************************************/
+
+TITLE1 'Structure/Data Dictionary of the dataset - DMLIBMFR.TESTING_DS';
+PROC CONTENTS DATA = DMLIBMFR.TESTING_DS;
+RUN;
+
+/***********************************************************************************************/
+
 TITLE1 'Structure/Data Dictionary of the dataset - DMLIBMFR.TRAINING_DS';
 PROC CONTENTS DATA = DMLIBMFR.TRAINING_DS;
 RUN;
+
+/***********************************************************************************************/
 
 TITLE1 'Figure 1 Univariate Analysis of the Categorical variable: GENDER';
 FOOTNOTE '----End----';
@@ -19,13 +29,14 @@ PROC FREQ DATA = DMLIBMFR.TRAINING_DS;
 TABLE GENDER;
 RUN;
 
-/* This code display a barchart of GENDER*/
+
 ODS GRAPHICS / RESET WIDTH = 4.0 IN HEIGHT = 3.0 IN IMAGEMAP;
 PROC SGPLOT DATA = DMLIBMFR.TRAINING_DS;
 VBAR GENDER;
 Title 'Figure 2 Univariate Analysis of the Categorical variable: GENDER';
 RUN;
 
+/***********************************************************************************************/
 
 TITLE1 'Figure 3 Univariate Analysis of the Categorical variable: LOAN_LOCATION';
 FOOTNOTE '----End----';
@@ -34,13 +45,13 @@ PROC FREQ DATA = DMLIBMFR.TRAINING_DS;
 TABLE LOAN_LOCATION;
 RUN;
 
-/* This code display a barchart of LOAN_LOCATION*/
 ODS GRAPHICS / RESET WIDTH = 4.0 IN HEIGHT = 3.0 IN IMAGEMAP;
 PROC SGPLOT DATA = DMLIBMFR.TRAINING_DS;
 VBAR LOAN_LOCATION;
 Title 'Figure 4 Univariate Analysis of the Categorical variable: LOAN_LOCATION';
 RUN;
 
+/***********************************************************************************************/
 
 TITLE1 'Figure 5 Univariate Analysis of the Categorical variable: MARITAL_STATUS';
 FOOTNOTE '----End----';
@@ -49,13 +60,13 @@ PROC FREQ DATA = DMLIBMFR.TRAINING_DS;
 TABLE MARITAL_STATUS;
 RUN;
 
-/* This code display a barchart of MARITAL_STATUS*/
 ODS GRAPHICS / RESET WIDTH = 4.0 IN HEIGHT = 3.0 IN IMAGEMAP;
 PROC SGPLOT DATA = DMLIBMFR.TRAINING_DS;
 VBAR MARITAL_STATUS;
 Title 'Figure 6 Univariate Analysis of the Categorical variable: MARITAL_STATUS';
 RUN;
 
+/***********************************************************************************************/
 
 TITLE1 'Figure 7 Univariate Analysis of the Categorical variable: QUALIFICATION';
 FOOTNOTE '----End----';
@@ -71,6 +82,7 @@ VBAR QUALIFICATION;
 Title 'Figure 8 Univariate Analysis of the Categorical variable: QUALIFICATION';
 RUN;
 
+/***********************************************************************************************/
 
 TITLE1 'Figure 9 Univariate Analysis of the Categorical variable: LOAN_HISTORY';
 FOOTNOTE '----End----';
@@ -86,6 +98,7 @@ VBAR LOAN_HISTORY;
 Title 'Figure 10 Univariate Analysis of the Categorical variable: LOAN_HISTORY';
 RUN;
 
+/***********************************************************************************************/
 
 TITLE1 'Figure 11 Univariate Analysis of the Categorical variable: LOAN_APPROVAL_STATUS';
 FOOTNOTE '----End----';
@@ -101,10 +114,11 @@ VBAR LOAN_APPROVAL_STATUS;
 Title 'Figure 12 Univariate Analysis of the Categorical variable: LOAN_APPROVAL_STATUS';
 RUN;
 
+/***********************************************************************************************/
 
-TITLE1 'Figure 13 Univariate Analysis of the Categorical variable: CANDIDATE_INCOME';
+TITLE1 'Figure 13 Univariate Analysis of the Categorical variable: CANDIDATE_INCOME';  /* Continous Variable */
 PROC MEANS DATA = DMLIBMFR.TRAINING_DS N NMISS MIN MAX MEAN MEDIAN STD;
-VAR CANDIDATE_INCOME;
+VAR CANDIDATE_INCOME; /* numeric variable */
 RUN;
 
 ODS GRAPHICS / RESET WIDTH = 4.0 IN HEIGHT = 3.0 IN IMAGEMAP;
@@ -113,6 +127,7 @@ HISTOGRAM CANDIDATE_INCOME;
 Title 'Figure 14 Univariate Analysis of the Categorical variable: CANDIDATE_INCOME';
 RUN;
 
+/***********************************************************************************************/
 
 TITLE1 'Figure 15 Univariate Analysis of the Categorical variable: LOAN_AMOUNT';
 PROC MEANS DATA = DMLIBMFR.TRAINING_DS N NMISS MIN MAX MEAN MEDIAN STD;
@@ -125,6 +140,7 @@ HISTOGRAM LOAN_AMOUNT;
 Title 'Figure 16 Univariate Analysis of the Categorical variable: LOAN_AMOUNT';
 RUN;
 
+/***********************************************************************************************/
 
 TITLE1 'Figure 17 Univariate Analysis of the Categorical variable: LOAN_DURATION';
 PROC MEANS DATA = DMLIBMFR.TRAINING_DS N NMISS MIN MAX MEAN MEDIAN STD;
@@ -137,6 +153,7 @@ HISTOGRAM LOAN_DURATION;
 Title 'Figure 18 Univariate Analysis of the Categorical variable: LOAN_DURATION';
 RUN;
 
+/***********************************************************************************************/
 
 TITLE1 'Figure 19 Bivariate Analysis of the variables:)';
 TITLE2 ' ( LOAN_location - Categorical variable vs LOAN_APPROVAL_STATUS - Categorical variable ) ';
@@ -148,6 +165,7 @@ TABLE  LOAN_LOCATION * LOAN_APPROVAL_STATUS /
 PLOTS = FREQPLOT( TWOWAY = STACKED SCALE = GROUPPCT );
 RUN;
 
+/***********************************************************************************************/
 
 TITLE1 'Figure 20 Bivariate Analysis of the variables:)';
 TITLE2 ' ( GENDER - Categorical variable vs LOAN_APPROVAL_STATUS - Categorical variable ) ';
@@ -159,6 +177,7 @@ TABLE  GENDER * LOAN_APPROVAL_STATUS /
 PLOTS = FREQPLOT( TWOWAY = STACKED SCALE = GROUPPCT );
 RUN;
 
+/***********************************************************************************************/
 
 TITLE1 'Figure 21 Bivariate Analysis of the variables:)';
 TITLE2 ' ( QUALIFICATION - Categorical variable vs LOAN_APPROVAL_STATUS  - Categorical variable ) ';
@@ -170,20 +189,21 @@ TABLE  QUALIFICATION * LOAN_APPROVAL_STATUS /
 PLOTS = FREQPLOT( TWOWAY = STACKED SCALE = GROUPPCT );
 RUN;
 
+/***********************************************************************************************/
 
 /* P : PARAMETER
    DS: DATASET
    VARI: VARIABLE
    UVA: UNIVARIATE
-*/
+   MACRO is an advanced functions feature from SAS to shorten the length of codes by write the code once but can call it many times. */
 
-/* MACRO BEGINS HERE */
+/* MACRO_FOR_UNAVARIATE_ANALYSIS BEGINS HERE */
 
-%MACRO MACRO_UVA(PDS_NAME, PVARI_NAME, PTITLE_1, PTITLE_2, PFOOTNOTE);
+%MACRO MACRO_UVA(PDS_NAME, PVARI_NAME, PTITLE_1, PTITLE_2);
 
 TITLE1 &PTITLE_1; /* PASSING VALUE */
 TITLE2 &PTITLE_2;
-FOOTNOTE &PFOOTNOTE;
+FOOTNOTE '----End----';
 
 PROC FREQ DATA = &PDS_NAME;
 
@@ -197,8 +217,383 @@ QUIT;
 
 /* CALL/RUN THE SAS MACRO */
 
-%MACRO_UVA(DMLIBMFR.TRAINING_DS, LOAN_LOCATION, 'UNIVARIATE ANALYSIS', 'OF THE CATEGORICAL VARIABLE - LOAN_LOCATION', '----End----');
-%MACRO_UVA(DMLIBMFR.TRAINING_DS, GENDER, 'UNIVARIATE ANALYSIS', 'OF THE CATEGORICAL VARIABLE - GENDER', '----End----');
-%MACRO_UVA(DMLIBMFR.TRAINING_DS, MARITAL_STATUS, 'UNIVARIATE ANALYSIS', 'OF THE CATEGORICAL VARIABLE - MARITAL_STATUS', '----End----');
-%MACRO_UVA(DMLIBMFR.TRAINING_DS, QUALIFICATION, 'UNIVARIATE ANALYSIS', 'OF THE CATEGORICAL VARIABLE - QUALIFICATION', '----End----');
+%MACRO_UVA(DMLIBMFR.TRAINING_DS, LOAN_LOCATION, 'UNIVARIATE ANALYSIS', 'OF THE CATEGORICAL VARIABLE - LOAN_LOCATION');
+%MACRO_UVA(DMLIBMFR.TRAINING_DS, GENDER, 'UNIVARIATE ANALYSIS', 'OF THE CATEGORICAL VARIABLE - GENDER');
+%MACRO_UVA(DMLIBMFR.TRAINING_DS, MARITAL_STATUS, 'UNIVARIATE ANALYSIS', 'OF THE CATEGORICAL VARIABLE - MARITAL_STATUS');
+%MACRO_UVA(DMLIBMFR.TRAINING_DS, QUALIFICATION, 'UNIVARIATE ANALYSIS', 'OF THE CATEGORICAL VARIABLE - QUALIFICATION');
 
+/***********************************************************************************************/
+
+TITLE1 'Figure 22 Bivariate Analysis of the variables:)';
+TITLE2 ' ( LOAN_LOCATION - Categorical variable vs CANDIDATE_INCOME  - Numeric variable ) ';
+FOOTNOTE '----End----';
+
+PROC MEANS DATA = DMLIBMFR.TRAINING_DS;
+
+CLASS LOAN_LOCATION; /* It is a Categorical variable */
+VAR CANDIDATE_INCOME; /* Numeric variable : Continous variable */
+RUN;
+
+PROC SGPLOT DATA = DMLIBMFR.TRAINING_DS;
+
+VBOX CANDIDATE_INCOME / CATEGORY = LOAN_LOCATION;
+/* LOAN_LOCATION X-AXIS CANDIDATE_INCOME Y-AXIS */
+TITLE1 'Figure 23 Bivariate Analysis of variables LOAN_LOCATION vs CANDIDATE_INCOME';
+RUN;
+
+/***********************************************************************************************/
+
+TITLE1 'Figure 24 Bivariate Analysis of the variables:)';
+TITLE2 ' ( MARITAL_STATUS - Categorical variable vs CANDIDATE_INCOME  - Continous ) ';
+FOOTNOTE '----End----';
+
+PROC MEANS DATA = DMLIBMFR.TRAINING_DS;
+
+CLASS MARITAL_STATUS; /* It is a Categorical variable */
+VAR CANDIDATE_INCOME; /* Numeric variable */
+RUN;
+
+PROC SGPLOT DATA = DMLIBMFR.TRAINING_DS;
+
+VBOX CANDIDATE_INCOME / CATEGORY = MARITAL_STATUS;
+/* MARITAL_STATUS X-AXIS CANDIDATE_INCOME Y-AXIS */
+TITLE1 'Figure 25 Bivariate Analysis of variables MARITAL_STATUS vs CANDIDATE_INCOME';
+RUN;
+
+/***********************************************************************************************/
+
+/* Make a back-up copy of the DMLIBMFR.TRAINING_DS before do cleansing treatment or data cleaning*/
+
+TITLE1 'Make a back-up copy of the DMLIBMFR.TRAINING_DS';
+
+PROC SQL;
+
+CREATE TABLE DMLIBMFR.TRAINING_DS_BK AS
+SELECT *
+FROM DMLIBMFR.TRAINING_DS;
+
+QUIT;
+
+/***********************************************************************************************/
+
+TITLE1 'Before imputing missing values';
+TITLE2 'STEP 1: List the observation(s) with the missing values in the MARITAL_STATUS';
+FOOTNOTE '----End----';
+
+PROC SQL;
+
+SELECT *
+FROM DMLIBMFR.TRAINING_DS
+WHERE ( ( marital_status IS NULL ) OR 
+	    ( marital_status IS MISSING ) OR 
+	    ( marital_status EQ '' ) );
+	    
+QUIT;
+
+/***********************************************************************************************/
+
+TITLE1 'STEP 2: Count the number of observations with missing values in the MARITAL_STATUS';
+FOOTNOTE '----End----';
+
+PROC SQL;
+
+SELECT COUNT(*) LABEL = 'Number of observations'
+FROM DMLIBMFR.TRAINING_DS
+WHERE ( ( marital_status IS NULL ) OR 
+	    ( marital_status IS MISSING ) OR 
+	    ( marital_status EQ '' ) );
+	    
+QUIT;
+
+/***********************************************************************************************/
+
+TITLE1 'STEP 3: Create a small dataset to hold or keep the intermediate results of marital_status & its counts.'; 
+FOOTNOTE '----End----';
+
+PROC SQL;
+
+CREATE TABLE DMLIBMFR.TRAINING_DS_MARITAL_STATUS AS 
+SELECT marital_status, COUNT(*) AS COUNTS
+FROM DMLIBMFR.TRAINING_DS
+WHERE ( ( marital_status IS NOT NULL ) OR 
+	    ( marital_status IS NOT MISSING ) OR 
+	    ( marital_status NE '' ) )
+GROUP BY marital_status;
+
+QUIT;
+
+/***********************************************************************************************/
+
+TITLE1 'STEP 4: Display the contents of the dataset - DMLIBMFR.TRAINING_DS_MARITAL_STATUS';
+FOOTNOTE '----End----';
+
+PROC SQL;
+ 
+SELECT *
+FROM DMLIBMFR.TRAINING_DS_MARITAL_STATUS;
+	    
+QUIT;
+
+/***********************************************************************************************/
+
+TITLE1 'STEP 5: Find the MOD and impute the missing values found in the dataset DMLIBMFR.TRAINING_DS';
+FOOTNOTE '----End----';
+
+PROC SQL;
+
+UPDATE DMLIBMFR.TRAINING_DS
+SET marital_status = ( SELECT marital_status Label = 'MOD_MARITAL_STATUS'
+					   FROM DMLIBMFR.TRAINING_DS_MARITAL_STATUS
+					   WHERE ( counts EQ ( SELECT MAX(counts) Label = 'Highest Counts'
+                    					   FROM DMLIBMFR.TRAINING_DS_MARITAL_STATUS ) ) )
+                                           /* Above is a sub-program to find the MOD of MARITAL_STATUS*/
+WHERE ( ( marital_status IS NULL ) OR 
+	    ( marital_status IS MISSING ) OR 
+	    ( marital_status EQ '' ) );
+   
+QUIT;
+
+/***********************************************************************************************/
+
+TITLE1 'After imputing missing values';
+TITLE2 'STEP 6: List the observation(s) with missing values in the MARITAL_STATUS';
+FOOTNOTE '----End----';
+
+PROC SQL;
+
+SELECT *
+FROM DMLIBMFR.TRAINING_DS
+WHERE ( ( marital_status IS NULL ) OR 
+	    ( marital_status IS MISSING ) OR 
+	    ( marital_status EQ '' ) );
+	    
+QUIT;
+
+/***********************************************************************************************/
+
+TITLE1 'STEP 7: Count the number of observations with missing values in the MARITAL_STATUS';
+FOOTNOTE '----End----';
+
+PROC SQL;
+
+SELECT COUNT(*) LABEL = 'Number of observations'
+FROM DMLIBMFR.TRAINING_DS
+WHERE ( ( marital_status IS NULL ) OR 
+	    ( marital_status IS MISSING ) OR 
+	    ( marital_status EQ '' ) );
+	    
+QUIT;
+
+/***********************************************************************************************/
+
+/* Univariate Analysis of Variables found in the DMLIBMFR.TESTING_DS using MACRO
+
+MACRO BEGINS HERE */
+
+%MACRO MACRO_UVA_TESTING_DS(PDS_NAME, PVARI_NAME, PTITLE_1, PTITLE_2);
+
+TITLE1 &PTITLE_1; /* PASSING VALUE */
+TITLE2 &PTITLE_2;
+FOOTNOTE '----End----';
+
+PROC FREQ DATA = &PDS_NAME;
+
+TABLE &PVARI_NAME;
+
+QUIT;
+
+%MEND MACRO_UVA_TESTING_DS;
+
+/* MACRO ENDS HERE */
+
+/* CALL/RUN THE SAS MACRO */
+
+%MACRO_UVA_TESTING_DS(DMLIBMFR.TESTING_DS, GENDER, 'UNIVARIATE ANALYSIS', 'OF THE CATEGORICAL VARIABLE - GENDER');
+%MACRO_UVA_TESTING_DS(DMLIBMFR.TESTING_DS, MARITAL_STATUS, 'UNIVARIATE ANALYSIS', 'OF THE CATEGORICAL VARIABLE - MARITAL_STATUS');
+%MACRO_UVA_TESTING_DS(DMLIBMFR.TESTING_DS, QUALIFICATION, 'UNIVARIATE ANALYSIS', 'OF THE CATEGORICAL VARIABLE - QUALIFICATION');
+%MACRO_UVA_TESTING_DS(DMLIBMFR.TESTING_DS, LOAN_LOCATION, 'UNIVARIATE ANALYSIS', 'OF THE CATEGORICAL VARIABLE - LOAN_LOCATION');
+%MACRO_UVA_TESTING_DS(DMLIBMFR.TESTING_DS, LOAN_HISTORY, 'UNIVARIATE ANALYSIS', 'OF THE CATEGORICAL VARIABLE - LOAN_HISTORY');
+
+/***********************************************************************************************/
+
+TITLE1 'Figure 26 After Imputation: Univariate Analysis of the Categorical variable: MARITAL_STATUS';
+FOOTNOTE '----End----';
+
+PROC FREQ DATA = DMLIBMFR.TRAINING_DS;
+TABLE MARITAL_STATUS;
+RUN;
+
+ODS GRAPHICS / RESET WIDTH = 4.0 IN HEIGHT = 3.0 IN IMAGEMAP;
+PROC SGPLOT DATA = DMLIBMFR.TRAINING_DS;
+VBAR MARITAL_STATUS;
+Title 'Figure 27 After Imputation: Univariate Analysis of the Categorical variable: MARITAL_STATUS';
+RUN;
+
+/***********************************************************************************************/
+
+LOAN_AMOUNT: UPDATE USE FOR CATEGORICAL NOT FOR NUMERIC
+
+TITLE1 'STEP 1: Make a back-up copy of the dataset - DMLIBMFR.TRAINING_DS';
+FOOTNOTE '----End----';
+
+PROC SQL;
+
+CREATE TABLE DMLIBMFR.TRAINING_DS_BK AS
+SELECT *
+FROM DMLIBMFR.TRAINING_DS;
+
+QUIT;
+
+
+TITLE1 'STEP 2: ( Before imputation ) List the observations with missing values in the variable: LOAN_AMOUNT ';
+FOOTNOTE '----End----';
+
+PROC SQL;
+
+SELECT *
+FROM DMLIBMFR.TRAINING_DS
+WHERE ( ( loan_amount EQ . ) OR 
+	    ( loan_amount IS MISSING ) );
+
+QUIT;
+
+TITLE1 'STEP 3: ( Before imputation ) Number of observations with missing values in the variable: LOAN_AMOUNT ';
+FOOTNOTE '----End----';
+
+PROC SQL;
+
+SELECT COUNT(*) Label = 'Number of Observations'
+FROM DMLIBMFR.TRAINING_DS
+WHERE ( ( loan_amount EQ . ) OR 
+	    ( loan_amount IS MISSING ) );
+
+QUIT;
+
+
+TITLE1 'STEP 4: Impute the missing values found in the variable - LOAN_AMOUNT';
+FOOTNOTE '---End---';
+
+PROC STDIZE DATA = DMLIBMFR.TRAINING_DS REPONLY
+
+METHOD = MEAN OUT = DMLIBMFR.TRAINING_DS;
+var LOAN_AMOUNT;
+
+QUIT;
+
+TITLE1 'STEP 5: ( After imputation ) List the observations with missing values in the variable: LOAN_AMOUNT ';
+FOOTNOTE '----End----';
+
+PROC SQL;
+
+SELECT *
+FROM DMLIBMFR.TRAINING_DS
+WHERE ( ( loan_amount EQ . ) OR 
+	    ( loan_amount IS MISSING ) );
+
+QUIT;
+
+TITLE1 'STEP 6: ( After imputation ) Number of observations with missing values in the variable: LOAN_AMOUNT ';
+FOOTNOTE '----End----';
+
+PROC SQL;
+
+SELECT COUNT(*) Label = 'Number of Observations'
+FROM DMLIBMFR.TRAINING_DS
+WHERE ( ( loan_amount EQ . ) OR 
+	    ( loan_amount IS MISSING ) );
+
+QUIT;
+
+/***********************************************************************************************/
+
+/* Bivariate Analysis of variables found in the - Using MACRO
+
+MACRO BEGINS HERE */
+
+%MACRO MACRO_BVA_CATE_TESTING_DS(PDS_NAME, PVARI_1, PVARI_2, PTITLE_1, PTITLE_2);
+
+TITLE1 &PTITLE_1; 
+TITLE2 &PTITLE_2;
+FOOTNOTE '----End---';
+
+PROC FREQ DATA = &PDS_NAME;
+
+TABLE &PVARI_1 * &PVARI_2 /
+PLOTS = FREQPLOT( TWOWAY = STACKED SCALE = GROUPPCT );
+
+RUN;
+
+%MEND MACRO_BVA_CATE_TESTING_DS;
+
+/* MACRO ENDS HERE */
+
+/* To run/call the MACRO - MACRO_BVA_CATE_TESTING_DS */
+%MACRO_BVA_CATE_TESTING_DS(DMLIBMFR.TESTING_DS, LOAN_LOCATION, GENDER, 'BIVARIATE ANALYSIS', 'LOAN_LOCATION - Cate variable vs GENDER - Cate variable');
+%MACRO_BVA_CATE_TESTING_DS(DMLIBMFR.TESTING_DS, QUALIFICATION, GENDER, 'BIVARIATE ANALYSIS', 'QUALIFICATION - Cate variable vs GENDER - Cate variable');
+
+/***********************************************************************************************/
+
+/* Create a model */
+
+PROC LOGISTIC DATA = DMLIBMFR.TRAINING_DS OUTMODEL = DMLIBMFR.TRAINING_DS_LRMODEL; /* Linear regression */
+CLASS
+GENDER
+LOAN_LOCATION
+MARITAL_STATUS
+QUALIFICATION
+LOAN_HISTORY;
+/* Above are categorical variables found inside the DMLIBMFR.TRAINING_DS */
+MODEL LOAN_APPROVAL_STATUS = /* place here all independent variables */
+/* LOAN_APPLICATION_STATUS is a dependent variable */
+GENDER
+MARITAL_STATUS
+QUALIFICATION
+LOAN_AMOUNT
+LOAN_DURATION
+LOAN_HISTORY
+CANDIDATE_INCOME
+LOAN_LOCATION;
+OUTPUT OUT = DMLIBMFR.TRAINING_DS_LR_OUT P = PRED_PROB;
+/* PRED_PROB -> Predicted probability - variable to hold predicted probability
+OUT -> the output will be stored in the dataset 
+Akaike Information Criterion must (AIC) < SC (Schwarz Criterion)
+*/
+RUN;
+
+/* If Pr > ChiSq is <= 0.05, it means that independent variable is an important variable and as is truely contributing to predict dependent variable 
+It means MARITAL_STATUS, QUALIFICATION, are contributing more other independent*/
+
+/***********************************************************************************************/
+
+TITLE1 'To view the contents of the model'; 
+
+PROC SQL;
+
+SELECT *
+FROM DMLIBMFR.TRAINING_DS_LRMODEL;
+
+QUIT;
+
+/***********************************************************************************************/
+
+/* Program to predict the LOAN_APPROVAL_STATUS using the Model created by the LRA (Logistic Regression Algorithm) */
+
+PROC LOGISTIC INMODEL = DMLIBMFR.TRAINING_DS_LRMODEL; /* It is a model you created */
+SCORE DATA = DMLIBMFR.TESTING_DS
+OUT = DMLIBMFR.TESTING_DS_LAS_PREDICTED; /* Location of output */
+QUIT;
+
+
+/* To view the LOAN_APPROVAL_STATUS */
+
+TITLE1 'LOAN_APPROVAL_STATUS';
+FOOTNOTE '---End---';
+
+PROC SQL;
+
+SELECT *
+FROM DMLIBMFR.TESTING_DS_LAS_PREDICTED;
+
+QUIT;
+
+/***********************************************************************************************/
